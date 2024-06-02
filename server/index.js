@@ -5,8 +5,11 @@ const connectDB = require("./config/database");
 const schema = require("./graphql/schema");
 const cors = require("cors");
 var app = express()
+
 require("dotenv").config()
 const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV || "production";
+
 
 // The root provides a resolver function for each API endpoint
 var root = {
@@ -15,9 +18,8 @@ var root = {
     },
 }
 
-
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 // Create and use the GraphQL handler.
 app.all(
@@ -25,7 +27,7 @@ app.all(
     createHandler({
         schema: schema,
         rootValue: root,
-        graphiql: false,
+        graphiql: NODE_ENV !== "production",
     })
 );
 

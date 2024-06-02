@@ -30,8 +30,7 @@ const OrderType = new GraphQLObjectType({
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         status: { type: GraphQLString },
-        //! Da risolvere
-        client: { // Relazione con ClientType
+        client: { //* Relazione con ClientType
             type: ClientType,
             resolve: (parent, args) => Client.findById(parent.clientId)
         }
@@ -165,7 +164,6 @@ const RootMutation = new GraphQLObjectType({
         }
     }
 });
-
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
