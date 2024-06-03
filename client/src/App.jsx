@@ -17,14 +17,12 @@ function App() {
                 <main className='mx-auto flex flex-col gap-2 mt-2 mb-4'>
                     <Routes>
                         <Route path='/' element={<Home />} />
-                        <Route path='clients' element={<ClientList />} >
-                            <Route path='create' element={<CreateClient />} />
-                            <Route path=':id/edit' element={<EditClient />} />
-                        </Route>
-                        <Route path='orders' element={<OrderList />} >
-                            <Route path='create' element={<CreateOrder />} />
-                            <Route path=':id/edit' element={<EditOrder />} />
-                        </Route>
+                        <Route path='clients' element={<ClientList />} />
+                        <Route path='clients/create' element={<CreateClient />} />
+                        <Route path='clients/:id/edit' element={<EditClient />} />
+                        <Route path='orders' element={<OrderList />}/>
+                        <Route path='orders/create' element={<CreateOrder />} />
+                        <Route path='orders/:id/edit' element={<EditOrder />} />
                     </Routes>
                 </main>
             </Router>
