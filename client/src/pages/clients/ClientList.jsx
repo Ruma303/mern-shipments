@@ -51,9 +51,9 @@ const ClientList = () => {
                         {data.clients.map(({ id, name, email, phone }, index) => (
                             <tr key={id}>
                                 <td className='py-2 px-4 border border-slate-600 font-semibold'>{index + 1}</td>
-                                <td className='py-2 px-4 border border-slate-600 '>{name}</td>
-                                <td className='py-2 px-4 border border-slate-600 '>{email}</td>
-                                <td className='py-2 px-4 border border-slate-600 '>{phone}</td>
+                                <td className='py-2 px-4 border border-slate-600'>{name}</td>
+                                <td className='py-2 px-4 border border-slate-600'>{email}</td>
+                                <td className='py-2 px-4 border border-slate-600'>{phone}</td>
                                 <td className='py-2 px-4 border border-slate-600 flex gap-4 items-center'>
                                     <Link to={`/clients/${id}/edit`}>
                                         <FaEdit className='bg-yellow-400 p-2 w-8 h-8 rounded hover:scale-105' />

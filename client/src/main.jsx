@@ -2,30 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { ApolloClient, ApolloProvider } from '@apollo/client';
-
-/* const cache = new InMemoryCache({
-typePolicies: {
-    Query: {
-        fields: {
-            clients: {
-                merge(existing, incoming) {
-                    return incoming;
-                }
-            },
-            orders: {
-                merge(existing, incoming) {
-                    return incoming;
-                }
-            }
-        }
-    }
-}
-}); */
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
     uri: 'http://localhost:5000/graphql',
-    //cache: new InMemoryCache(),
+    cache: new InMemoryCache(),
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -35,3 +16,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 
 
+
+/* const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                clients: {
+                    merge(existing, incoming) {
+                        return incoming;
+                    }
+                },
+                orders: {
+                    merge(existing, incoming) {
+                        return incoming;
+                    }
+                }
+            }
+        }
+    }
+}); */

@@ -10,7 +10,6 @@ import CreateOrder from './pages/orders/CreateOrder';
 import EditOrder from './pages/orders/EditOrder';
 
 function App() {
-
     return (
         <div className='mx-auto flex flex-col gap-2'>
             <Router>
