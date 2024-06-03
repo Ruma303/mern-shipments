@@ -8,10 +8,8 @@ import { Link } from 'react-router-dom';
 const ClientList = () => {
     const { loading, error, data } = useQuery(GET_CLIENTS);
     const [deleteClient] = useMutation(DELETE_CLIENT);
-    //refetchQueries: [{ query: GET_CLIENTS }] // Consente di recuperare i dati aggiornati
 
     const handleDeleteClient = (id) => {
-        console.log('Deleting ' + id);
         deleteClient({
             variables: { id },
             update(cache) {
@@ -19,12 +17,12 @@ const ClientList = () => {
                 cache.writeQuery({
                     query: GET_CLIENTS,
                     data: {
-                        clients: clients.filter((client) => client.id !== id)
+                        clients: clients.filter(client => client.id !== id)
                     }
                 });
             }
         });
-    }
+    };
 
     if (loading) return <FaSpinner className="animate-spin" />;
     if (error) return <p>Error :(</p>

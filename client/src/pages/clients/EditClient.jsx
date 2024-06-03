@@ -9,7 +9,19 @@ import { UPDATE_CLIENT } from '../../mutations/clientMutations';
 const EditClient = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [updateClient] = useMutation(UPDATE_CLIENT);
+    // const [updateClient] = useMutation(UPDATE_CLIENT);
+    const [updateClient] = useMutation(UPDATE_CLIENT, {
+        update(cache, { data: { updateClient } }) {
+            const { clients } = cache.readQuery({ query: GET_CLIENTS });
+            const updatedClients = clients.map(client =>
+                client.id === updateClient.id ? updateClient : client
+            );
+            cache.writeQuery({
+                query: GET_CLIENTS,
+                data: { clients: updatedClients },
+            });
+        }
+    });
 
     const [client, setClient] = useState({
         name: '',

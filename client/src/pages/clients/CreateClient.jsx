@@ -2,6 +2,7 @@ import React from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { GET_CLIENTS } from '../../queries/clientQueries';
 import { ADD_CLIENT } from '../../mutations/clientMutations';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,16 +12,34 @@ const CreateClient = () => {
     const [phone, setPhone] = useState('');
     const navigate = useNavigate();
 
-    const [addClient] = useMutation(ADD_CLIENT);
+    const [addClient] = useMutation(ADD_CLIENT, {
+        update(cache, { data: { addClient } }) {
+            const queryData = cache.readQuery({ query: GET_CLIENTS });
+            if (queryData) {
+                const { clients } = queryData;
+                cache.writeQuery({
+                    query: GET_CLIENTS,
+                    data: { clients: [...clients, addClient] }
+                });
+            }
+        },
+        onCompleted: () => {
+            navigate('/clients');
+        },
+        onError: (error) => {
+            console.error("Error adding client:", error);
+        }
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name && email && phone) {
-            addClient({ variables: { name, email, phone } });
+            addClient({
+                variables: { name, email, phone }
+            });
             setName('');
             setEmail('');
             setPhone('');
-            navigate('/clients');
         }
     };
 
